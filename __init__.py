@@ -12,6 +12,10 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'  # Clé secrète pour les sessions
 def est_authentifie():
     return session.get('authentifie')
 
+# Vérifier si l'utilisateur est un "user" (et non admin)
+def est_utilisateur():
+    return session.get('username') == 'user'
+
 @app.route('/')
 def hello_world():
     return render_template('hello.html')
