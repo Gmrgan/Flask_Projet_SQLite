@@ -34,7 +34,7 @@ def authentification():
             session['username'] = 'admin'
             # Rediriger vers la route lecture après une authentification réussie
             return redirect(url_for('lecture'))
-        else if request.form['username'] == 'user' and request.form['password'] == '12345':
+        elif request.form['username'] == 'user' and request.form['password'] == '12345':
             session['authentifie'] = True
             session['username'] = 'user'
             return redirect(url_for('lecture'))
