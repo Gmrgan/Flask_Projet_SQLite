@@ -36,7 +36,7 @@ def authentification():
             return redirect(url_for('lecture'))
         else if request.form['username'] == 'user' and request.form['password'] == '12345':
              session['authentifie'] = True
-             session['username'] = 'admin'
+             session['username'] = 'user'
             return redirect(url_for('lecture'))
             # Afficher un message d'erreur si les identifiants sont incorrects
         else:
