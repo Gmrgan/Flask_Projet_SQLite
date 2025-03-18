@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Emprunts</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .retard {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mes Emprunts</h1>
+
+    {% if emprunts %}
+        <table>
+            <tr>
+                <th>ID Emprunt</th>
+                <th>Titre du Livre</th>
+                <th>Date d'Emprunt</th>
+                <th>Date Retour Prévu</th>
+                <th>Date Retour Effectif</th>
+                <th>Statut</th>
+            </tr>
+            {% for emprunt in emprunts %}
+            <tr>
+                <td>{{ emprunt[0] }}</td>
+                <td>{{ emprunt[1] }}</td>
+                <td>{{ emprunt[2] }}</td>
+                <td>{{ emprunt[3] }}</td>
+                <td>{{ emprunt[4] if emprunt[4] else 'Non retourné' }}</td>
+                <td>
+                    {% if not emprunt[4] and emprunt[3] < current_date %}
+                        <span class="retard">En retard</span>
+                    {% elif emprunt[4] %}
+                        Retourné
+                    {% else %}
+                        En cours
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Vous n'avez aucun emprunt en cours.</p>
+    {% endif %}
+
+    <a href="{{ url_for('lecture') }}">Retour à l'accueil</a>
+</body>
+</html>
