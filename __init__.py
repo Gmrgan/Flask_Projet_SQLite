@@ -30,11 +30,16 @@ def authentification():
     if request.method == 'POST':
         # Vérifier les identifiants
         if request.form['username'] == 'admin' and request.form['password'] == 'password': # password à cacher par la suite
-            session['authentifie'] = True
+             session['authentifie'] = True
+             session['username'] = 'admin'
             # Rediriger vers la route lecture après une authentification réussie
             return redirect(url_for('lecture'))
-        else:
+        else if request.form['username'] == 'user' and request.form['password'] == '12345':
+             session['authentifie'] = True
+             session['username'] = 'admin'
+            return redirect(url_for('lecture'))
             # Afficher un message d'erreur si les identifiants sont incorrects
+        else:
             return render_template('formulaire_authentification.html', error=True)
 
     return render_template('formulaire_authentification.html', error=False)
@@ -51,6 +56,9 @@ def Readfiche(post_id):
 
 @app.route('/fiche_nom/<string:post_nom>')
 def Readfiche_nom(post_nom):
+ if not est_authentifie() or not est_utilisateur():
+        return "<h2>Accès interdit. Seuls les utilisateurs (non admins) peuvent voir cette page.</h2>", 403
+
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM clients WHERE nom = ?', (post_nom,))
