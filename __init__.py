@@ -30,13 +30,13 @@ def authentification():
     if request.method == 'POST':
         # Vérifier les identifiants
         if request.form['username'] == 'admin' and request.form['password'] == 'password': # password à cacher par la suite
-             session['authentifie'] = True
-             session['username'] = 'admin'
+            session['authentifie'] = True
+            session['username'] = 'admin'
             # Rediriger vers la route lecture après une authentification réussie
             return redirect(url_for('lecture'))
         else if request.form['username'] == 'user' and request.form['password'] == '12345':
-             session['authentifie'] = True
-             session['username'] = 'user'
+            session['authentifie'] = True
+            session['username'] = 'user'
             return redirect(url_for('lecture'))
             # Afficher un message d'erreur si les identifiants sont incorrects
         else:
