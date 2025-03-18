@@ -56,9 +56,8 @@ def Readfiche(post_id):
 
 @app.route('/fiche_nom/<string:post_nom>')
 def Readfiche_nom(post_nom):
- if not est_authentifie() or not est_utilisateur():
+    if not est_authentifie() or not est_utilisateur():
         return "<h2>Accès interdit. Seuls les utilisateurs (non admins) peuvent voir cette page.</h2>", 403
-
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM clients WHERE nom = ?', (post_nom,))
