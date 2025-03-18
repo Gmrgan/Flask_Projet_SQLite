@@ -1,28 +1,98 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Clients</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 <body>
-    <h1>Liste des Clients</h1>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Création</th>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>Adresse</th>
-        </tr>
-        {% for row in data %}
-        <tr>
-            <td>{{ row[0] }}</td>
-            <td>{{ row[1] }}</td>
-            <td>{{ row[2] }}</td>
-            <td>{{ row[3] }}</td>
-            <td>{{ row[4] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <h1>Résultats</h1>
+
+    {% if type == 'utilisateurs' %}
+        <h2>Liste des Utilisateurs</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Rôle</th>
+            </tr>
+            {% for row in data %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    {% elif type == 'livres' %}
+        <h2>Liste des Livres</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Genre</th>
+                <th>Année</th>
+                <th>ISBN</th>
+                <th>Stock</th>
+            </tr>
+            {% for row in data %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[5] }}</td>
+                <td>{{ row[6] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    {% elif type == 'emprunts' %}
+        <h2>Historique des Emprunts</h2>
+        <table>
+            <tr>
+                <th>ID Emprunt</th>
+                <th>Utilisateur</th>
+                <th>Livre</th>
+                <th>Date d'Emprunt</th>
+                <th>Date Retour Prévue</th>
+                <th>Date Retour Effectif</th>
+            </tr>
+            {% for row in data %}
+            <tr>
+                <td>{{ row[0] }}</td>
+                <td>{{ row[1] }}</td>
+                <td>{{ row[2] }}</td>
+                <td>{{ row[3] }}</td>
+                <td>{{ row[4] }}</td>
+                <td>{{ row[5] if row[5] else 'Non retourné' }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    {% else %}
+        <p>Aucune donnée disponible.</p>
+    {% endif %}
 </body>
 </html>
